@@ -1,13 +1,11 @@
-filebeat.modules:
-  - module: system
-    syslog:
-      enabled: true
-      var.paths: ["/var/log/syslog*"]
-  - module: system
-    auth:
-      enabled: true
-      var.paths: ["/var/log/auth.log*"]
+filebeat.inputs:
+  - type: container
+    enabled: true
+    paths:
+      - /var/lib/docker/containers/*/*.log
 output.logstash:
   hosts: ["logstash:5044"]
+
 setup.kibana:
-  host: "<http://kibana:5601>"
+  host: "http://kibana:5601"
+logging.level: info
